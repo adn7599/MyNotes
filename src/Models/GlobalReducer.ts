@@ -21,6 +21,7 @@ export const GlobalReducer = (state: GlobalState, action: Action) => {
 			});
 			break;
 		case 'NOTE_UPDATE':
+			console.log('Updated note' + action.payload.text);
 			state.notes = state.notes.map((n) => {
 				if (n.id === action.payload.id) {
 					return action.payload;

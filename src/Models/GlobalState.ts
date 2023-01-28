@@ -7,7 +7,8 @@ export const Colours: Colour[] =
 		{ label: "green", hexcode: "#51c37f" },
 		{ label: "purple", hexcode: "#c351bf" },
 		{ label: "blue", hexcode: "#5186c3" },
-		{ label: "yellow", hexcode: "#f1d74e" }
+		{ label: "yellow", hexcode: "#f1d74e" },
+		{ label: "white", hexcode: "#f2ead8" },
 	]
 
 export interface Note {
@@ -15,8 +16,8 @@ export interface Note {
 	title: string;
 	text: string,
 	colour: Colour;
-	creation_date: Date;
-	updation_date: Date | null;
+	creation_date: string;
+	updation_date: string | null;
 	isVisible: boolean; //For search visibility
 }
 export function createNote(title: string, text: string, colour: Colour): Note {
@@ -26,7 +27,7 @@ export function createNote(title: string, text: string, colour: Colour): Note {
 		title,
 		text,
 		colour,
-		creation_date: new Date(Date.now()),
+		creation_date: (new Date()).toISOString(),
 		updation_date: null,
 		isVisible: true
 	};
@@ -44,7 +45,7 @@ export default interface GlobalState {
 }
 
 const testArray: Note[] = [1, 2, 3, 4, 5,6,7,8,9,10,11,12].map((i) => {
-	return createNote(`Note title ${i}`, 'lorem ipsum ipsum ipasdfajkjlsj ksdf', Colours[i%5]);
+	return createNote(`Note title ${i}`, 'lorem ipsum ipsum ipasdfajkjlsj ksdf', Colours[i%Colours.length]);
 });
 
 export const initState: GlobalState = {

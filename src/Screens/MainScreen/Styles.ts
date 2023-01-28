@@ -33,12 +33,15 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 		flexDirection: 'column',
-		flexWrap: 'wrap'
+	},
+	main__body__TouchableNote:{
+		borderRadius: 8,
+		width: '100%',
 	},
 	main__body__noteCard: {
 		backgroundColor: 'yellow',
-		width: 300,	
-		height: 100,
+		width: '100%',	
+		height: 130,
 		padding: 8,
 		margin: 2,
 		borderRadius: 8,

@@ -18,8 +18,19 @@ const Header : React.FC = () => {
 	};
 
 	return (<View style={styles.main__header}>
-		<TextInput style={styles.main__header__search} defaultValue={search} onChangeText={t => setSearch(t)} onSubmitEditing={()=> searchNote()} placeholder='Search your notes' />
-		<Avatar.Text size={40} label='A' style={styles.main__header__avatar}/>
+		<TextInput 
+			style={styles.main__header__search} 
+			defaultValue={search} 
+			onChangeText={t => setSearch(t)} 
+			onSubmitEditing={()=> searchNote()} 
+			placeholder='Search your notes'
+			clearButtonMode='while-editing'
+		/>
+		<Avatar.Text 
+			size={40} 
+			label='A' 
+			style={styles.main__header__avatar}
+		/>
 	</View>)
 };
 export default Header;
