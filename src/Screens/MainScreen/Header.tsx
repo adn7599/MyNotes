@@ -22,7 +22,8 @@ const Header : React.FC = () => {
 			style={styles.main__header__search} 
 			defaultValue={search} 
 			onChangeText={t => setSearch(t)} 
-			onSubmitEditing={()=> searchNote()} 
+			onSubmitEditing={()=> searchNote()}
+			onBlur = {() => searchNote()}
 			placeholder='Search your notes'
 			clearButtonMode='while-editing'
 		/>

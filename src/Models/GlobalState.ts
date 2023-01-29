@@ -44,7 +44,7 @@ export default interface GlobalState {
 	userLogin: UserLogin;
 }
 
-const testArray: Note[] = [1, 2, 3, 4, 5,6,7,8,9,10,11,12].map((i) => {
+const testArray: Note[] = [1, 2, 3, 4].map((i) => {
 	return createNote(`Note title ${i}`, 'lorem ipsum ipsum ipasdfajkjlsj ksdf', Colours[i%Colours.length]);
 });
 

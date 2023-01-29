@@ -18,10 +18,12 @@ const styles = StyleSheet.create({
 		marginLeft: 10
 	},
 	edit__header__title: {
+		fontWeight: 'bold',
 		marginLeft: 10,
 		flex: 1
 	},
 	edit__header__title__text: {
+		//fontWeight: 'bold',
 		fontSize: 25
 	},
 	edit__header__saveButton: {
@@ -47,6 +49,20 @@ const styles = StyleSheet.create({
 	edit__text__input: {
 		fontSize: 25
 	},
+
+	//Times
+	edit__timeView: {
+		borderTopWidth: 0.5,
+		padding: 5
+	},
+	edit__timeView__creationText: {
+		fontStyle: 'italic',
+		fontSize: 16
+	},
+	edit__timeView__updationText: {
+		fontStyle: 'italic',
+		fontSize: 16
+	}
 });
 
 export default styles;

@@ -20,7 +20,7 @@ const NoteCard: React.FC<Props> = ({ note,onClick }) => {
 			>
 			<Text style={styles.main__body__noteCard__title}>{note.title}</Text>
 			<Text style={styles.main__body__noteCard__text}>{note.text}</Text>
-			<Text>{note.isVisible ? 'Yes' : 'No'}</Text>
+			{/* <Text>{note.isVisible ? 'Yes' : 'No'}</Text> */}
 		</View>
 			{/* <Text>{note.colour.hexcode}</Text> */ }
 		</TouchableNativeFeedback >

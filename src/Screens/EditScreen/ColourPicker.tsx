@@ -12,15 +12,16 @@ interface Props {
 	onColourSelected: (colour: Colour) => void
 }
 
-const ColourPicker: React.FC<Props> = ({ modalVisible, setModalVisible, pickedColour , onColourSelected}) => {
+const ColourPicker: React.FC<Props> = ({ modalVisible, setModalVisible, pickedColour, onColourSelected }) => {
 	return (
 		<Modal
-			animationType="slide"
+			animationType="fade"
 			transparent={true}
 			visible={modalVisible}
 			onRequestClose={() => {
 				setModalVisible(!modalVisible)
 			}
+
 			}
 		>
 			<View
@@ -83,12 +84,16 @@ const ColourButton: React.FC<ColourButtonProps> = ({ colour, isSelected, onSelec
 }
 
 const myStyles = StyleSheet.create({
+	modal: {
+
+	},
 	modalView: {
-		margin: 20,
+		//margin: 20,
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 15,
 		alignItems: 'center',
+		width: 280,
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
@@ -97,6 +102,9 @@ const myStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 4,
 		elevation: 5,
+		position: 'absolute',
+		top: '35%',
+		alignSelf: 'center',
 	},
 
 	header: {
@@ -110,8 +118,8 @@ const myStyles = StyleSheet.create({
 	body: {
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		alignContent: 'flex-start',
-		width: '65%'
+		alignContent: 'center',
+		width: 180
 	},
 	circle: {
 		margin: 5,

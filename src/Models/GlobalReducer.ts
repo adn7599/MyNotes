@@ -10,19 +10,21 @@ export type Action =
 //User Login
 //To be added
 
-export const GlobalReducer = (state: GlobalState, action: Action) => {
+export const GlobalReducer = (state: GlobalState, action: Action): GlobalState => {
+	let newState: GlobalState = {...state};
+
 	switch (action.type) {
 		case 'NOTE_ADD':
-			state.notes.push(action.payload);
+			newState.notes.push(action.payload);
 			break;
 		case 'NOTE_DELETE':
-			state.notes = state.notes.filter((n) => {
+			newState.notes = newState.notes.filter((n) => {
 				n.id !== action.payload.id;
 			});
 			break;
 		case 'NOTE_UPDATE':
 			console.log('Updated note' + action.payload.text);
-			state.notes = state.notes.map((n) => {
+			newState.notes = newState.notes.map((n) => {
 				if (n.id === action.payload.id) {
 					return action.payload;
 				}
@@ -30,7 +32,7 @@ export const GlobalReducer = (state: GlobalState, action: Action) => {
 			});
 			break;
 		case 'NOTE_SEARCH':
-			state.notes = state.notes.map(n => {
+			newState.notes = newState.notes.map(n => {
 				const lower_search = action.payload.toLowerCase();
 				if(n.title.toLowerCase().includes(lower_search) || n.text.toLowerCase().includes(lower_search)){
 					n.isVisible = true;
@@ -44,15 +46,16 @@ export const GlobalReducer = (state: GlobalState, action: Action) => {
 			break;
 		case 'NOTE_SEARCH_RESET':
 			console.log('Search Reset!');
-			state.notes = state.notes.map(n => {
+			newState.notes = newState.notes.map(n => {
 				n.isVisible = true;
 				return n;
 			})
 			break;
 		default:
+			console.log('Invalid action type submitted!');	
 			break;
 	}
 
-	return state;
+	return newState;
 }
 

@@ -4,7 +4,7 @@ import { GlobalContextProvider } from './Models/GlobalContext';
 import MainScreen from './Screens/MainScreen/MainScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import EditScreen from './Screens/EditScreen/EditScreen';
+import EditScreen, { Mode } from './Screens/EditScreen/EditScreen';
 import { Note } from './Models/GlobalState';
 /*const theme = {
   ...DefaultTheme,
@@ -18,6 +18,7 @@ import { Note } from './Models/GlobalState';
 type StackParamList = {
   Main: undefined, 
   Edit: {
+    mode: Mode;
     note: Note;
   }
 };

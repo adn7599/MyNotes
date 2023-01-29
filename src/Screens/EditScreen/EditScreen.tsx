@@ -8,11 +8,13 @@ import styles from './styles';
 import ColourPicker from './ColourPicker';
 import useGlobalContext from '../../Models/GlobalContext';
 
+export type Mode = 'edit' | 'add';
+
 const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 	const [note, setNote] = useState<Note>(route.params.note);
 	const [colourPickerVisible, setColourPickerVisible] = useState<boolean>(false);
-	
-	const {state,dispatcher} = useGlobalContext();
+	const [mode, setMode] = useState<Mode>(route.params.mode);
+	const { state, dispatcher } = useGlobalContext();
 
 	const onBackPressed = () => {
 		// console.log('Back button pressed');	
@@ -27,27 +29,43 @@ const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 
 	const onColourSelected = (colour: Colour) => {
 		console.log(`Selected colour: ${colour.label}`);
-		setNote({...note,colour: colour});
+		setNote({ ...note, colour: colour });
 	}
 
 	const onPressSave = () => {
 		//Save the note and call navigation.goBack()
 		console.log('Pressed save button');
-		dispatcher({type: 'NOTE_UPDATE', payload: note});
+		if (note.title !== "") {
+			if (mode === 'edit') {
+				note.updation_date = (new Date()).toISOString();
+				dispatcher({ type: 'NOTE_UPDATE', payload: note });
+			} else {
+				dispatcher({ type: 'NOTE_ADD', payload: note });
+				navigation.pop();
+			}
+		}else{
+			console.log('Title empty error');	
+		}
+	}
+	let title: string;
+	if (mode == 'add') {
+		title = 'Create Note'
+	} else {
+		title = 'Edit Note'
 	}
 
 	return (
 		<SafeAreaView style={[styles.edit, { backgroundColor: note.colour.hexcode }]}>
-			<Header 
-				title='Edit Note' 
-				onBackPress={onBackPressed} 
-				onPressColourPicker ={onPressColourPicker}
-				onPressSave ={onPressSave}
+			<Header
+				title={title}
+				onBackPress={onBackPressed}
+				onPressColourPicker={onPressColourPicker}
+				onPressSave={onPressSave}
 			/>
 
-			<ColourPicker 
-				modalVisible={colourPickerVisible} 
-				setModalVisible={setColourPickerVisible} 
+			<ColourPicker
+				modalVisible={colourPickerVisible}
+				setModalVisible={setColourPickerVisible}
 				pickedColour={note.colour}
 				onColourSelected={onColourSelected}
 			/>
@@ -74,15 +92,27 @@ const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 						style={styles.edit__text__input}
 					/>
 				</View>
-				<View>
-					<Text>{note.id}</Text>
-					<Text>{note.title}</Text>
-					<Text>{note.text}</Text>
-					<Text>{note.creation_date}</Text>
-					<Text>{note.updation_date}</Text>
-					<Text>{note.colour.label + " " + note.colour.hexcode}</Text>
-				</View>
 			</ScrollView>
+			{
+				mode === 'edit' ?
+					<View style={styles.edit__timeView}>
+						<Text
+							style={styles.edit__timeView__creationText}
+						>
+							Created on {(new Date(note.creation_date)).toLocaleString()}
+						</Text>
+						{note.updation_date !== null ?
+							<Text
+								style={styles.edit__timeView__updationText}
+							>
+								Updated on {(new Date(note.updation_date)).toLocaleString()}</Text>
+							:
+							<></>
+						}
+					</View>
+					:
+					<></>
+			}
 		</SafeAreaView>
 	)
 }
