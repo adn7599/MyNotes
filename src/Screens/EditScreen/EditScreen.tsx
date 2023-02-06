@@ -1,8 +1,8 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react'
 import { EditScreenProps } from '../../App';
-import { View, Text, TextInput, ScrollView } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, ScrollView, Alert } from 'react-native';
 import { Colour, Note } from '../../Models/GlobalState';
+import * as rnp from 'react-native-paper';
 import Header from './Header';
 import styles from './styles';
 import ColourPicker from './ColourPicker';
@@ -43,10 +43,34 @@ const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 				dispatcher({ type: 'NOTE_ADD', payload: note });
 				navigation.pop();
 			}
-		}else{
-			console.log('Title empty error');	
+		} else {
+			console.log('Title empty error');
 		}
-	}
+	};
+
+	const onPressDelete = () => {
+		Alert.alert('Delete Note', 'Do you want to delete this note?', [
+			{
+				text: 'Cancel',
+				onPress: () => console.log('Cancel Pressed'),
+				style: 'cancel',
+			},
+			{
+				text: 'OK',
+				onPress: () => {
+					console.log('OK Pressed')
+					onPressConfirmDelete();
+				}
+			},
+		]);
+	};
+
+	const onPressConfirmDelete = () => {
+		console.log('Pressed delete button');
+		dispatcher({ type: 'NOTE_DELETE', payload: note });
+		navigation.pop();
+	};
+
 	let title: string;
 	if (mode == 'add') {
 		title = 'Create Note'
@@ -61,6 +85,7 @@ const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 				onBackPress={onBackPressed}
 				onPressColourPicker={onPressColourPicker}
 				onPressSave={onPressSave}
+				onPressDelete={onPressDelete}
 			/>
 
 			<ColourPicker

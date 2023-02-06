@@ -6,6 +6,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import EditScreen, { Mode } from './Screens/EditScreen/EditScreen';
 import { Note } from './Models/GlobalState';
+import LoginScreen from './Screens/User/LoginScreen/LoginScreen';
+import RegisterScreen from './Screens/User/RegisterScreen/RegisterScreen';
+import WelcomeScreen from './Screens/User/WelcomeScreen/WelcomeScreen';
 /*const theme = {
   ...DefaultTheme,
   colors: {
@@ -16,6 +19,9 @@ import { Note } from './Models/GlobalState';
 }; */
 
 type StackParamList = {
+  Welcome: undefined,
+  Register: undefined,
+  Login: undefined,
   Main: undefined, 
   Edit: {
     mode: Mode;
@@ -23,6 +29,9 @@ type StackParamList = {
   }
 };
 const Stack = createNativeStackNavigator<StackParamList>();
+export type WelcomeScreenProps = NativeStackScreenProps<StackParamList,'Welcome'>;
+export type LoginScreenProps = NativeStackScreenProps<StackParamList,'Login'>;
+export type RegisterScreenProps = NativeStackScreenProps<StackParamList,'Register'>;
 export type MainScreenProps = NativeStackScreenProps<StackParamList,'Main'>;
 export type EditScreenProps = NativeStackScreenProps<StackParamList,'Edit'>;
 
@@ -33,9 +42,21 @@ const App: React.FC = () => {
       <NavigationContainer>
         <Stack.Navigator 
           screenOptions={{headerShown: false}}
-          initialRouteName='Main'
+          initialRouteName='Welcome'
         >
           {/* <PaperProvider> */}
+          <Stack.Screen 
+            name='Welcome'
+            component={WelcomeScreen} 
+          />
+          <Stack.Screen 
+            name='Login'
+            component={LoginScreen} 
+          />
+          <Stack.Screen 
+            name='Register'
+            component={RegisterScreen} 
+          />
           <Stack.Screen
             name="Main"
             component={MainScreen}

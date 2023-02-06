@@ -19,7 +19,7 @@ export const GlobalReducer = (state: GlobalState, action: Action): GlobalState =
 			break;
 		case 'NOTE_DELETE':
 			newState.notes = newState.notes.filter((n) => {
-				n.id !== action.payload.id;
+				return n.id !== action.payload.id;
 			});
 			break;
 		case 'NOTE_UPDATE':

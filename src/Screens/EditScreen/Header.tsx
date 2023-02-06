@@ -10,9 +10,10 @@ interface Props {
 	onBackPress: () => void;
 	onPressColourPicker: () => void;
 	onPressSave: () => void;
+	onPressDelete: () => void;
 }
 
-const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPressSave }) => {
+const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPressSave,onPressDelete }) => {
 
 	return (
 		<View style={styles.edit__header}>
@@ -36,6 +37,18 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 				</Text>
 			</View>
 		
+			<TouchableNativeFeedback
+				onPress={() => { onPressDelete() }}
+			>
+				<View
+					style={styles.edit__header__colorPickerButton}
+				>
+					<IconMaterial
+						name='delete'
+						size={35}
+					/>
+				</View>
+			</TouchableNativeFeedback>
 			<TouchableNativeFeedback
 				onPress={() => { onPressColourPicker() }}
 			>
