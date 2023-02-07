@@ -14,12 +14,14 @@ const styles = StyleSheet.create({
 		width: '95%',
 		fontWeight: 'bold',
 		fontSize: 38,
-		marginBottom: 15,
+		marginBottom: 20,
 	},
 	inputs: {
 		width: '95%',
 		marginBottom: 5,
-		borderRadius: 5,
+		borderTopLeftRadius: 5,
+		borderTopRightRadius: 5,
+		backgroundColor: '#faf7f8',
 	},
 	regLoginButton: {
 		marginTop: 12,

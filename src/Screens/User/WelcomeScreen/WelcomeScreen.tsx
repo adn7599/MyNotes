@@ -1,6 +1,6 @@
 import React from 'react'
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { StatusBar, SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { WelcomeScreenProps } from '../../../App';
 import styles from '../styles';
 
@@ -15,6 +15,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation, route }) => {
 
 	return (
 		<SafeAreaView>
+			<StatusBar
+				animated={true}
+				backgroundColor="#f1d74e"
+				barStyle='dark-content'
+			/>
 			<View style={[styles.container, myStyles.container]}>
 				<Text style={[styles.title, myStyles.title]}>
 					Welcome!

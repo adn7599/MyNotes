@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { EditScreenProps } from '../../App';
-import { SafeAreaView, View, Text, TextInput, ScrollView, Alert } from 'react-native';
+import { StatusBar,SafeAreaView, View, Text, TextInput, ScrollView, Alert } from 'react-native';
 import { Colour, Note } from '../../Models/GlobalState';
 import * as rnp from 'react-native-paper';
 import Header from './Header';
@@ -80,6 +80,11 @@ const EditScreen: React.FC<EditScreenProps> = ({ navigation, route }) => {
 
 	return (
 		<SafeAreaView style={[styles.edit, { backgroundColor: note.colour.hexcode }]}>
+			<StatusBar
+				animated={true}
+				backgroundColor={note.colour.hexcode}
+				barStyle='dark-content'
+			/>
 			<Header
 				title={title}
 				onBackPress={onBackPressed}

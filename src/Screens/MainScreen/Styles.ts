@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	main: {
+		backgroundColor: '#f1d74e',
 		height: '100%',
 		width: '100%',
 	},
@@ -16,21 +17,24 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	main__header__search: {
-		backgroundColor: '#d9d9d9',
+		backgroundColor: '#faf7f8',
 		borderRadius: 10,
+		// fontSize: 15,
 		margin: 1,
-		padding: 8,
+		// elevation: 0,
+		// padding: 8,
 		width: 'auto',
 		flex: 5,
 	},
 	main__header__avatar : {
 		marginHorizontal: 5,
+		elevation: 2,
 	},
 	//Body
 	main__body: {
 		padding: 5,
 		// backgroundColor: 'pink',
-		backgroundColor: 'white',
+		backgroundColor: '#faf7f8',
 		width: '100%',
 		height: '100%',
 		flexDirection: 'column',
@@ -52,19 +56,23 @@ const styles = StyleSheet.create({
 		margin: 4,
 		borderRadius: 8,
 		
+		// shadowColor: 'black',
+		// shadowOffset: {width: 5,height: 5},
+		// shadowOpacity: 0.8,
+		
 		// borderColor: 'blue',
 		// borderWidth: 3,
 	},
-	main__body__noteCardSelected: {
-		borderColor: 'blue',
-		borderWidth: 3,
-	},
+	// main__body__noteCardSelected: {
+	// 	borderColor: 'blue',
+	// 	borderWidth: 3,
+	// },
 	main__body__noteCard__title: {
-		fontSize: 18,
+		fontSize: 19,
 		fontWeight: 'bold'
 	},
 	main__body__noteCard__text: {
-		fontSize: 14,
+		fontSize: 15,
 	}
 });
 

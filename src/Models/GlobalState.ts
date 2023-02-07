@@ -35,7 +35,7 @@ export function createNote(title: string, text: string, colour: Colour): Note {
 
 export interface UserLogin {
 	isLoggedIn: boolean,
-	username: string;
+	email: string;
 	token: string;
 };
 
@@ -52,7 +52,7 @@ export const initState: GlobalState = {
 	notes: [...testArray],
 	userLogin: {
 		isLoggedIn: false,
-		username: "",
+		email: "advaitnaik7599@gmail.com",
 		token: "",
 	}
 };

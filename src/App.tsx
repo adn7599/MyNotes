@@ -9,6 +9,7 @@ import { Note } from './Models/GlobalState';
 import LoginScreen from './Screens/User/LoginScreen/LoginScreen';
 import RegisterScreen from './Screens/User/RegisterScreen/RegisterScreen';
 import WelcomeScreen from './Screens/User/WelcomeScreen/WelcomeScreen';
+import ChangePassScreen from './Screens/User/ChangePassScreen/ChangePassScreen';
 /*const theme = {
   ...DefaultTheme,
   colors: {
@@ -22,6 +23,7 @@ type StackParamList = {
   Welcome: undefined,
   Register: undefined,
   Login: undefined,
+  ChangePass: undefined,
   Main: undefined, 
   Edit: {
     mode: Mode;
@@ -32,6 +34,7 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export type WelcomeScreenProps = NativeStackScreenProps<StackParamList,'Welcome'>;
 export type LoginScreenProps = NativeStackScreenProps<StackParamList,'Login'>;
 export type RegisterScreenProps = NativeStackScreenProps<StackParamList,'Register'>;
+export type ChangePassScreenProps = NativeStackScreenProps<StackParamList,'ChangePass'>;
 export type MainScreenProps = NativeStackScreenProps<StackParamList,'Main'>;
 export type EditScreenProps = NativeStackScreenProps<StackParamList,'Edit'>;
 
@@ -43,6 +46,7 @@ const App: React.FC = () => {
         <Stack.Navigator 
           screenOptions={{headerShown: false}}
           initialRouteName='Welcome'
+          // initialRouteName='ChangePass'
         >
           {/* <PaperProvider> */}
           <Stack.Screen 
@@ -56,6 +60,10 @@ const App: React.FC = () => {
           <Stack.Screen 
             name='Register'
             component={RegisterScreen} 
+          />
+          <Stack.Screen 
+            name='ChangePass'
+            component={ChangePassScreen} 
           />
           <Stack.Screen
             name="Main"

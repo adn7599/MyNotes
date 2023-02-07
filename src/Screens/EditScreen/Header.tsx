@@ -26,7 +26,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 					<IconAntDesign
 						name='arrowleft'
 						style={{color: 'black'}}
-						size={35}
+						size={33}
 					/>
 				</View>
 			</TouchableNativeFeedback>
@@ -45,7 +45,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 				>
 					<IconMaterial
 						name='delete'
-						size={35}
+						size={33}
 					/>
 				</View>
 			</TouchableNativeFeedback>
@@ -57,7 +57,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 				>
 					<IconMaterial
 						name='color-lens'
-						size={35}
+						size={33}
 					/>
 				</View>
 			</TouchableNativeFeedback>
@@ -70,7 +70,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 				>
 					<IconMaterial
 						name='save'
-						size={35}
+						size={33}
 					/>
 				</View>
 			</TouchableNativeFeedback>

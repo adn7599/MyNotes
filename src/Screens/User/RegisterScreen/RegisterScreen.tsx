@@ -1,6 +1,6 @@
 import styles from '../styles';
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StatusBar,SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { RegisterScreenProps } from '../../../App';
@@ -17,6 +17,11 @@ const RegisterScreen: React.FC<RegisterScreenProps> = ({navigation,route}) => {
 
 	return (
 		<SafeAreaView>
+			<StatusBar
+				animated={true}
+				backgroundColor="#f1d74e"
+				barStyle='dark-content'
+			/>
 			<View style={styles.container}>
 				<Text style={styles.title}>
 					Register
