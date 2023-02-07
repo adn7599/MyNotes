@@ -10,6 +10,7 @@ import LoginScreen from './Screens/User/LoginScreen/LoginScreen';
 import RegisterScreen from './Screens/User/RegisterScreen/RegisterScreen';
 import WelcomeScreen from './Screens/User/WelcomeScreen/WelcomeScreen';
 import ChangePassScreen from './Screens/User/ChangePassScreen/ChangePassScreen';
+import auth from '@react-native-firebase/auth';
 /*const theme = {
   ...DefaultTheme,
   colors: {
@@ -45,7 +46,7 @@ const App: React.FC = () => {
       <NavigationContainer>
         <Stack.Navigator 
           screenOptions={{headerShown: false}}
-          initialRouteName='Welcome'
+          initialRouteName={auth().currentUser === null ? 'Welcome': 'Main'}
           // initialRouteName='ChangePass'
         >
           {/* <PaperProvider> */}

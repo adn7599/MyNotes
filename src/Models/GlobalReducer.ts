@@ -2,6 +2,7 @@ import GlobalState, { Note } from "./GlobalState"
 
 export type Action =
 	//Notes
+	{type: 'INIT', payload: GlobalState} |
 	{ type: 'NOTE_ADD', payload: Note } |
 	{ type: 'NOTE_DELETE', payload: Note } |
 	{ type: 'NOTE_UPDATE', payload: Note }|
@@ -14,6 +15,9 @@ export const GlobalReducer = (state: GlobalState, action: Action): GlobalState =
 	let newState: GlobalState = {...state};
 
 	switch (action.type) {
+		case 'INIT':
+			newState = action.payload;
+			break;
 		case 'NOTE_ADD':
 			newState.notes.push(action.payload);
 			break;

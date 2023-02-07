@@ -13,7 +13,7 @@ interface Props {
 	onPressDelete: () => void;
 }
 
-const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPressSave,onPressDelete }) => {
+const Header: React.FC<Props> = ({ title, onBackPress, onPressColourPicker, onPressSave, onPressDelete }) => {
 
 	return (
 		<View style={styles.edit__header}>
@@ -25,7 +25,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 				>
 					<IconAntDesign
 						name='arrowleft'
-						style={{color: 'black'}}
+						style={{ color: 'black' }}
 						size={33}
 					/>
 				</View>
@@ -36,9 +36,10 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 					{title}
 				</Text>
 			</View>
-		
+
 			<TouchableNativeFeedback
 				onPress={() => { onPressDelete() }}
+				disabled={title.toLowerCase().includes('create')}
 			>
 				<View
 					style={styles.edit__header__colorPickerButton}
@@ -61,7 +62,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 					/>
 				</View>
 			</TouchableNativeFeedback>
-			
+
 			<TouchableNativeFeedback
 				onPress={() => { onPressSave() }}
 			>
@@ -74,7 +75,7 @@ const Header: React.FC<Props> = ({ title, onBackPress,onPressColourPicker,onPres
 					/>
 				</View>
 			</TouchableNativeFeedback>
-			
+
 		</View>
 	);
 }

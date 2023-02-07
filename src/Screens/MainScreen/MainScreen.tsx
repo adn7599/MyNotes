@@ -1,23 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View, ScrollView, FlatList, StatusBar, Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import useGlobalContext from '../../Models/GlobalContext';
 import Header from './Header';
 import NoteCard from './Note';
 import styles from './Styles';
 import navigation, { useNavigation } from '@react-navigation/native';
-import { Colours, createNote, Note } from '../../Models/GlobalState';
+import GlobalState, { Colour, Colours, createNote, Note } from '../../Models/GlobalState';
 import { MainScreenProps } from '../../App';
 import FloatingActionButtion from './FloatingActionButtion';
 import AccountModal from './AccountModal';
 
 import auth from '@react-native-firebase/auth';
-
+import firestore from '@react-native-firebase/firestore';
 
 const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 	const [accountModalVisible, setAccountModalVisible] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const global = useGlobalContext();
 
 	const avatarLetter = global.state.userLogin.email.charAt(0).toUpperCase();
+
+	useEffect(() => {
+		const user = auth().currentUser;
+		console.log('Current user: ' + user?.email);
+		// console.log('Current user: ' + user?.getIdToken());
+		const newGlobalState: GlobalState = {
+			notes: [],
+			userLogin: {
+				email: user?.email as string,
+			}
+		};
+		firestore()
+			.collection('users')
+			.doc(newGlobalState.userLogin.email)
+			.collection('notes')
+			.get()
+			.then(notes => {
+				notes.docs.forEach((note) => {
+					const n = note.data();
+					// console.log(note.id);	
+					newGlobalState.notes.push({
+						title: n.title,
+						text: n.text,
+						colour: n.colour,
+						id: note.id,
+						creation_date: n.creation_date.toDate().toISOString(),
+						updation_date: n.updation_date ? n.updation_date.toDate().toISOString() : '',
+						isVisible: true,
+					});
+				});
+				global.dispatcher({ type: 'INIT', payload: newGlobalState });
+				setIsLoading(false);
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	}, []);
 
 	const onPressLogoutModal = () => {
 		setAccountModalVisible(false);
@@ -31,13 +70,68 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 						text: 'Okay',
 					}]
 				);
-				navigation.popToTop();
+				if (navigation.canGoBack()) {
+					navigation.popToTop();
+				} else {
+					navigation.replace('Welcome');
+				}
 			})
 			.catch((e) => {
 				Alert.alert('Logout error', e.message, [{ text: 'Okay' }]);
-				navigation.popToTop();
+				if (navigation.canGoBack()) {
+					navigation.popToTop();
+				} else {
+					navigation.replace('Welcome');
+				}
 			});
 	}
+
+	const onPressDeleteAcc = () => {
+		deleteAccount()
+			.then(() => {
+				Alert.alert(
+					'Account Deleted successfully',
+					'Please register again to continue',
+					[
+						{
+							text: 'Okay',
+							onPress: () => {
+								if (navigation.canGoBack()) {
+									navigation.popToTop();
+								} else {
+									navigation.replace('Welcome');
+								}
+							}
+						}
+					]
+				)
+			}).catch((e) => {
+				Alert.alert(
+					'Account Deletion error',
+					e.message,
+					[
+						{
+							text: 'Okay',
+							onPress: () => {
+								if (navigation.canGoBack()) {
+									navigation.popToTop();
+								} else {
+									navigation.replace('Welcome');
+								}
+							}
+						}
+					]
+				)
+			});
+	};
+
+	const deleteAccount = () => {
+		return firestore()
+			.collection('users')
+			.doc(global.state.userLogin.email)
+			.delete()
+			.then(() => auth().currentUser?.delete());
+	};
 
 	const onPressChangePassModal = () => {
 		setAccountModalVisible(false);
@@ -67,6 +161,17 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 		);
 	}
 
+	if (isLoading) {
+		return (<SafeAreaView style={[styles.main, { alignItems: 'center', justifyContent: 'center' }]}>
+			<StatusBar
+				animated={true}
+				backgroundColor="#f1d74e"
+				barStyle='dark-content'
+			/>
+			<ActivityIndicator animating={true} size={'large'} />
+		</SafeAreaView>)
+	}
+
 	return (
 		<SafeAreaView style={styles.main}>
 			<StatusBar
@@ -84,6 +189,7 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 				setIsVisible={setAccountModalVisible}
 				onPressLogout={onPressLogoutModal}
 				onPressChangePass={onPressChangePassModal}
+				onPressDeleteAcc={onPressDeleteAcc}
 			/>
 			<FloatingActionButtion
 				onClickHandler={handlerAddNote}
@@ -93,11 +199,12 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 			>
 				{noteDivs}
 			</ScrollView>
+
 			{/* <FlatList
-			style={styles.main__body}
-			data={noteDivs}
-			renderItem={({ item }) => <item />}
-			keyExtractor={(item,index) => noteIds[index]} /> */}
+				style={styles.main__body}
+				data={noteDivs}
+				renderItem={({ item }) => <item />}
+				keyExtractor={(item,index) => noteIds[index]} /> */}
 		</SafeAreaView >);
 };
 

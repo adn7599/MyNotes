@@ -10,9 +10,10 @@ interface Props {
 	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 	onPressLogout: () => void;
 	onPressChangePass: () => void;
+	onPressDeleteAcc: () => void;
 };
 
-const AccountModal: React.FC<Props> = ({ email, isVisible, setIsVisible, onPressLogout, onPressChangePass }) => {
+const AccountModal: React.FC<Props> = ({ email, isVisible, setIsVisible, onPressLogout, onPressChangePass, onPressDeleteAcc }) => {
 
 	const avatarLetter = email.charAt(0).toUpperCase();
 
@@ -60,6 +61,15 @@ const AccountModal: React.FC<Props> = ({ email, isVisible, setIsVisible, onPress
 							<View style={myStyles.button__view}>
 								<Text style={myStyles.button__view__text}>
 									Change Password
+								</Text>
+							</View>
+						</TouchableNativeFeedback>
+					</View>
+					<View style={myStyles.button}>
+						<TouchableNativeFeedback onPress={() => { onPressDeleteAcc() }}>
+							<View style={myStyles.button__view}>
+								<Text style={myStyles.button__view__text}>
+									Delete Account	
 								</Text>
 							</View>
 						</TouchableNativeFeedback>
@@ -141,7 +151,7 @@ const myStyles = StyleSheet.create({
 	button__view__text: {
 		textAlign: 'center',
 		fontWeight: 'bold',
-		padding: 4,
+		padding: 3,
 		fontSize: 16,
 	}
 });

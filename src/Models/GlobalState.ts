@@ -17,26 +17,26 @@ export interface Note {
 	text: string,
 	colour: Colour;
 	creation_date: string;
-	updation_date: string | null;
+	updation_date: string;
 	isVisible: boolean; //For search visibility
 }
 export function createNote(title: string, text: string, colour: Colour): Note {
-	let uu = uuid.v4().toString();
+	// let uu = uuid.v4().toString();
 	return {
-		id: uu,
+		id: '',
 		title,
 		text,
 		colour,
-		creation_date: (new Date()).toISOString(),
-		updation_date: null,
+		creation_date: '',
+		updation_date: '',
 		isVisible: true
 	};
 }
 
 export interface UserLogin {
-	isLoggedIn: boolean,
+	// isLoggedIn: boolean,
 	email: string;
-	token: string;
+	// token: string;
 };
 
 export default interface GlobalState {
@@ -44,15 +44,15 @@ export default interface GlobalState {
 	userLogin: UserLogin;
 }
 
-const testArray: Note[] = [1, 2, 3, 4].map((i) => {
-	return createNote(`Note title ${i}`, 'lorem ipsum ipsum ipasdfajkjlsj ksdf', Colours[i%Colours.length]);
-});
+// const testArray: Note[] = [1, 2, 3, 4].map((i) => {
+// 	return createNote(`Note title ${i}`, 'lorem ipsum ipsum ipasdfajkjlsj ksdf', Colours[i%Colours.length]);
+// });
 
 export const initState: GlobalState = {
-	notes: [...testArray],
+	notes: [],
 	userLogin: {
-		isLoggedIn: false,
-		email: "advaitnaik7599@gmail.com",
-		token: "",
+		// isLoggedIn: false,
+		email: "",
+		// token: "",
 	}
 };
