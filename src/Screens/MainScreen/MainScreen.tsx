@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, ScrollView, FlatList,StatusBar } from 'react-native';
+import { SafeAreaView, Text, View, ScrollView, FlatList, StatusBar, Alert } from 'react-native';
 import useGlobalContext from '../../Models/GlobalContext';
 import Header from './Header';
 import NoteCard from './Note';
@@ -10,16 +10,33 @@ import { MainScreenProps } from '../../App';
 import FloatingActionButtion from './FloatingActionButtion';
 import AccountModal from './AccountModal';
 
+import auth from '@react-native-firebase/auth';
+
 
 const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 	const [accountModalVisible, setAccountModalVisible] = useState(false);
 	const global = useGlobalContext();
 
 	const avatarLetter = global.state.userLogin.email.charAt(0).toUpperCase();
-	
+
 	const onPressLogoutModal = () => {
 		setAccountModalVisible(false);
-		navigation.popToTop();
+
+		auth().signOut()
+			.then(() => {
+				Alert.alert(
+					'User logger out successfully',
+					'Thank you!',
+					[{
+						text: 'Okay',
+					}]
+				);
+				navigation.popToTop();
+			})
+			.catch((e) => {
+				Alert.alert('Logout error', e.message, [{ text: 'Okay' }]);
+				navigation.popToTop();
+			});
 	}
 
 	const onPressChangePassModal = () => {
