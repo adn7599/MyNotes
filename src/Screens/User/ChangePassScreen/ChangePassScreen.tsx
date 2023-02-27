@@ -34,15 +34,24 @@ const ChangePassScreen: React.FC<ChangePassScreenProps> = ({ navigation, route }
 			//After reauthentication	
 			user = auth().currentUser;
 			user?.updatePassword(pass1);
-			
+
 			Alert.alert(
 				'Password updated successfully',
 				'Please login again to continue',
 				[
 					{
-						text : 'Okay',
-						onPress:  () => {
-							navigation.popToTop();
+						text: 'Okay',
+						onPress: () => {
+							auth().signOut()
+								.then(() => {
+									navigation.popToTop();
+									navigation.replace('Welcome');
+								})
+								.catch((e) => {
+									Alert.alert('Logout error', e.message, [{ text: 'Okay' }]);
+									navigation.popToTop();
+									navigation.replace('Welcome');
+								});
 						}
 					}
 				]

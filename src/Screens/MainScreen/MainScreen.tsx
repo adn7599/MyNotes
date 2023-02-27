@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 
 const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 	const [accountModalVisible, setAccountModalVisible] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const global = useGlobalContext();
 
 	const avatarLetter = global.state.userLogin.email.charAt(0).toUpperCase();
@@ -125,12 +125,19 @@ const MainScreen: React.FC<MainScreenProps> = ({ navigation, route }) => {
 			});
 	};
 
-	const deleteAccount = () => {
-		return firestore()
-			.collection('users')
+	const deleteAccount = async () => {
+		const db = firestore();
+		const snap = await db.collection('users')
 			.doc(global.state.userLogin.email)
-			.delete()
-			.then(() => auth().currentUser?.delete());
+			.collection('notes')
+			.get()
+		const batch = db.batch()
+		snap.forEach((doc) => {
+			// console.log(doc.ref);
+			batch.delete(doc.ref);
+		});
+		await batch.commit()
+		await auth().currentUser?.delete();
 	};
 
 	const onPressChangePassModal = () => {

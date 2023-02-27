@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, View, TouchableNativeFeedback, StyleSheet, Text } from 'react-native';
+import { Modal, View, TouchableNativeFeedback, StyleSheet, Text, Alert } from 'react-native';
 import { Avatar, TouchableRipple } from 'react-native-paper';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import { WelcomeScreenProps } from '../../App';
@@ -66,10 +66,25 @@ const AccountModal: React.FC<Props> = ({ email, isVisible, setIsVisible, onPress
 						</TouchableNativeFeedback>
 					</View>
 					<View style={myStyles.button}>
-						<TouchableNativeFeedback onPress={() => { onPressDeleteAcc() }}>
+						<TouchableNativeFeedback onPress={() => {
+							Alert.alert('Delete Account', 'Do you want to delete this Account?', [
+								{
+									text: 'Cancel',
+									onPress: () => console.log('Cancel Pressed'),
+									style: 'cancel',
+								},
+								{
+									text: 'OK',
+									onPress: () => {
+										console.log('OK Pressed')
+										onPressDeleteAcc()
+									}
+								},
+							]);
+						}}>
 							<View style={myStyles.button__view}>
 								<Text style={myStyles.button__view__text}>
-									Delete Account	
+									Delete Account
 								</Text>
 							</View>
 						</TouchableNativeFeedback>
